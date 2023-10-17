@@ -153,7 +153,7 @@ const WalletConfirmation: React.FC<WalletConfirmationProps> = ({
     // Move the router.push("/trick"); inside the useEffect
     useEffect(() => {
       if (isSuccess) {
-        router.push("/Trick"); // Redirect to '/trick' only when isSuccess is true
+        router.push("/Questionairre"); // Redirect to '/trick' only when isSuccess is true
       }
     }, [isSuccess, router]);
   
