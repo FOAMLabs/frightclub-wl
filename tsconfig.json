@@ -34,7 +34,7 @@
     "next.config.js",
     ".next/types/**/*.ts",
     "global.d.ts"
-, "lib/mongodb.ts"  ],
+, "lib/mongodb.ts", "components/FAQPage.tsx"  ],
   "exclude": [
     "node_modules"
   ]

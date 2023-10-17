@@ -134,7 +134,7 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
     if (isLastQuestionAnswered) {
       setSurveyComplete(true);
       setTimeout(() => {
-        router.push('/');
+        router.push('/Mint');
       }, 3000);
     }
   }, [isLastQuestionAnswered, setSurveyComplete, router]);
