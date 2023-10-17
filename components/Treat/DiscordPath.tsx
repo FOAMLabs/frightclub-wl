@@ -58,10 +58,6 @@ const DiscordPath: React.FC = () => {
       window.removeEventListener("deviceorientation", handleOrientation);
     };
   }, []);
-  const handleStartDiscordApi = () => {
-    window.location.href = "http://localhost:3000/api/auth/callback/discord";
-    console.log("Starting Discord API process...");
-  };
 
   return (
     <div className="background-image-y" {...bind()}>
@@ -72,7 +68,7 @@ const DiscordPath: React.FC = () => {
         <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
       </Link>
 
-      <DiscordCard onStartDiscordApi={handleStartDiscordApi} /> {/* Render the TwitterCard component */}
+      <DiscordCard /> 
     </div>
   );
 };

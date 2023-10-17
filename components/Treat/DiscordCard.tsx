@@ -38,7 +38,6 @@ const DiscordCard: React.FC = ({ }) => {
       
           <DiscordSignInButton />
       
-         {/*  {DiscordVerification()} Call the XVerification function here */}
         </CardContent>
       </StyledCard>
     </CenteredCardContainer>

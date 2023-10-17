@@ -26,7 +26,7 @@ const CenteredCardContainer = styled("div")({
 
 
 
-const XCard: React.FC<XCardProps> = ({  }) => {
+const XCard: React.FC = ({  }) => {
  
   return (
     <CenteredCardContainer>
