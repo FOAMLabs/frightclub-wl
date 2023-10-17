@@ -25,7 +25,7 @@ import { publicProvider } from "wagmi/providers/public";
 import merge from "lodash.merge";
 
 
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
 
 const myTheme = merge(darkTheme(), {
   colors: {
@@ -61,6 +61,7 @@ const wagmiConfig = createConfig({
 
 function MyApp({ Component, pageProps }: AppProps) {
 
+  
 
   return (
     <WagmiConfig config={wagmiConfig}>

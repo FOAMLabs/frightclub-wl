@@ -58,11 +58,6 @@ const XPath: React.FC = () => {
       window.removeEventListener("deviceorientation", handleOrientation);
     };
   }, []);
-  const handleStartTwitterAPI = () => {
-    // This initiates the sign-in process
-    window.location.href = 'http://localhost:3000/auth/twitter';
-    console.log("Starting Twitter API process...");
-  };
 
   return (
     <div className="background-image-x" {...bind()}>
@@ -75,7 +70,7 @@ const XPath: React.FC = () => {
         <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
       </Link>
 
-      <XCard onStartXAPI={handleStartTwitterAPI} /> {/* Render the TwitterCard component */}
+      <XCard />
     </div>
   );
 };

@@ -24,30 +24,10 @@ const CenteredCardContainer = styled("div")({
   minHeight: "100vh", // Ensure the container takes up the full viewport height
 });
 
-interface XCardProps {
-  onStartXAPI: () => void;
-}
 
-const XCard: React.FC<XCardProps> = ({ onStartXAPI }) => {
-  function XVerification() {
-    const [isVerified, setIsVerified] = useState(false);
-  
-    useEffect(() => {
-      // Check the session for verification status
-      fetch('/api/session/check')
-        .then(response => response.json())
-        .then(data => {
-          setIsVerified(data.isVerified);
-        });
-    }, []);
-    
-    return isVerified ? (
-      <div>
-        <h1>You are signed in</h1>
-      </div>
-    ) : null;
-  }
-  
+
+const XCard: React.FC<XCardProps> = ({  }) => {
+ 
   return (
     <CenteredCardContainer>
       <StyledCard>
