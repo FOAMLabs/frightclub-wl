@@ -8,58 +8,102 @@
 }
 
 .hallway {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start; /* align to the top */
-    width: 100%;
-    padding: 2px;
- 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  
+    gap: 2px;
+}
+.hallway > .videoWrapper:nth-last-child(-n+2) {
+    grid-column: span 2;
 }
 
-.wrapper {
+.videoWrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    position: relative; /* Establishes the positioning context for the button */
+    justify-content: center; /* Center content vertically within the grid cell */
+    align-items: center;     /* Center content horizontally within the grid cell */
 }
 
 .frame {
-    width: 500px;
-    padding: 10px;
+    width: 300px;
+    padding: 5px;
 }
 
 .video {
     width: 100%;
-    height: 500px;
+    height: 300px;
     object-fit: contain;
 }
 
 .button {
     position: relative;
-    top: -170px; /* Adjust as needed */
-    left: 15%; /* Adjust as needed */
+    top: -170px;
+    left: 15%;
     padding: 2px 5px;
     z-index: 2;
-    width: 100px;  /* Set to the width of the largest button */
-    height: 50px;  /* Set to the height of the largest button */
-    text-align: center;  /* Center the text within the button */
-    box-sizing: border-box;  /* Ensure padding and border are included in the element's total width and height */
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    box-sizing: border-box;
 }
 
-/* Media Query for smaller screens */
-@media (max-width: 768px) {
+/* Tablet Version */
+@media (max-width: 1024px) and (min-width: 769px) {
     .hallway {
-        flex-direction: column;
-        padding-top: 200px;
+        grid-template-columns: repeat(4, 1fr); 
+    }
+    .hallway > .videoWrapper:nth-last-child(-n+1) {
+        grid-column: span 2;
     }
     .frame {
-        width: 200px;
+        width: 275px; 
+        padding: 5px;
     }
     .video {
-        height: 200px;
+        height: 275px;
     }
+}
+
+
+
+/* Phone Version */
+@media (max-width: 768px) {
+    .hallway {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 4px;
+        justify-items: center; /* Horizontally centers the items in the grid */
+        align-items: center;   /* Vertically centers the items in the grid */
+    }
+    
+    .hallway > .videoWrapper:nth-of-type(3) {
+        grid-row: 2;
+        grid-column: span 2;
+    }
+
+    .hallway > .videoWrapper:nth-last-child(-n+2) {
+        grid-row: 3; /* Ensures the last two videos are in the bottom row */
+    }
+
+    .frame {
+        width: 230px;
+        padding: 5px;
+    }
+
+    .video {
+        height: 230px;
+    }
+
+    .videoWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     .button {
-        top: 0; /* Adjusts the vertical position of the button for smaller screens */
+        position: relative;
+        top: -50px; /* Adjust as needed for smaller screens */
+        left: 50%;  /* Center button horizontally */
+        transform: translateX(-50%); /* Ensures the button remains centered regardless of its width */
     }
 }

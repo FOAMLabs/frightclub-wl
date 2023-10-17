@@ -70,19 +70,20 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ handleStepChange, activ
         { src: '/VIDEO_4.mp4', label: 'Trivia', href: '/page4' },
         { src: '/VIDEO_5.mp4', label: 'Completed', href: '/page5' }
     ];
-
+    
     return (
         <Container maxWidth="md" className={styles.container}>
             <div className={styles.hallway}>
                 {videoData.map((video, index) => (
-                    <VideoFrame
-                        key={index}
-                        videoSrc={video.src}
-                        buttonLabel={video.label}
-                        handleStepChange={handleStepChange}  // Pass the function down
-                        index={index}  // Pass the index of the button
-                        activeStep={activeStep}  // Pass the current step
-                    />
+                    <div className={styles.videoWrapper} key={index}>
+                        <VideoFrame
+                            videoSrc={video.src}
+                            buttonLabel={video.label}
+                            handleStepChange={handleStepChange}
+                            index={index}
+                            activeStep={activeStep}
+                        />
+                    </div>
                 ))}
             </div>
         </Container>
