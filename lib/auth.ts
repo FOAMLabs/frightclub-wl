@@ -8,7 +8,7 @@ import clientPromise from "./mongodb";
 
 
 export const config = {
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise as any),
     providers: [
       DiscordProvider({
           clientId: process.env.DISCORD_CLIENT_ID!,

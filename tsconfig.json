@@ -6,6 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": ["./node_modules/@types", "./types"], // or wherever your global.d.ts file is
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -31,8 +32,9 @@
     "**/*.ts",
     "**/*.tsx",
     "next.config.js",
-    ".next/types/**/*.ts"
-  ],
+    ".next/types/**/*.ts",
+    "global.d.ts"
+, "lib/mongodb.ts"  ],
   "exclude": [
     "node_modules"
   ]

@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 declare module NodeJS {
   interface Global {
-    _mongoClientPromise: Promise<MongoClient>;
+    _mongoClientPromise: Promise<import("mongodb").MongoClient> | undefined;
   }
 }
 
