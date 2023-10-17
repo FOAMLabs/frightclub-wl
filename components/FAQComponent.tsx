@@ -53,18 +53,6 @@ const FAQ: React.FC = () => {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-            Wen Moon?
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography variant="body1" align="left">
-            Wen Werewolf?
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
 
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -87,7 +75,7 @@ const FAQ: React.FC = () => {
   </AccordionSummary>
   <AccordionDetails>
     <Typography variant="body1" align="left">
-      5%
+      2%
     </Typography>
   </AccordionDetails>
 </Accordion>
