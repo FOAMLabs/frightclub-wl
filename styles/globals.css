@@ -2,8 +2,129 @@ html,
 body {
   padding: 0;
   margin: 0;
+  overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-size: cover;
+  z-index: 1;
+}
+
+.background-image-x {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/kitchen.png');
+  background-size: cover;
+  z-index: 1;
+}
+
+.background-image-y {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/graveyard.png');
+  background-size: cover;
+  z-index: 1;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(224, 225, 220, 0.3) 5%,
+      rgba(225, 225, 225, 0.2) 10%,
+      rgba(30, 30, 0, 0.98) 20%,
+      rgba(4, 22, 15, 0.98) 400%,
+      rgba(4, 22, 15, 0.97) 100%,
+      transparent 5%,
+      rgba(3, 2, 15, 0.98) 100%
+    )
+    no-repeat;
+  background-size: 100% 100%;
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  z-index: 10;
+  color: white;
+}
+
+.button1 {
+  z-index: 10;
+  padding: 10px 20px;
+  border: none;
+  background-color: #8c0017;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+}
+.logo,
+.menu-items,
+.menu {
+  position: fixed;
+  z-index: 10;
+}
+
+.logo {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  max-width: 400px;
+  min-width: 150px;
+}
+
+.myfooter {
+  position: fixed;
+  flex: auto;
+  left: 30%;
+  bottom: 1%;
+  background-color: #8c0017;
+  z-index: 3;
+  
+}
+
+
+.menu-items,
+.menu {
+  top: 100px;
+  width: 25%;
+  max-width: 200px;
+  min-width: 75px;
+  transform: translateY(-50%);
+}
+
+.menu-items {
+  left: calc(25% - 150px - 10px);
+}
+
+.menu {
+  right: calc(25% - 150px - 10px);
 }
 
 a {
@@ -13,4 +134,24 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+  .menu-items,
+  .menu {
+    top: calc(10px + 50% + 50px);
+    width: 40%;
+    max-width: none;
+    min-width: none;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .menu-items {
+    top: calc(10px + 50% + 50px + 100px);
+  }
+
+  .menu {
+    top: calc(10px + 50% + 50px + 200px);
+  }
 }

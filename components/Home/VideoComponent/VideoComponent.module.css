@@ -1,0 +1,65 @@
+/* VideoComponent.module.css */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.hallway {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start; /* align to the top */
+    width: 100%;
+    padding: 2px;
+ 
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Establishes the positioning context for the button */
+}
+
+.frame {
+    width: 500px;
+    padding: 10px;
+}
+
+.video {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.button {
+    position: relative;
+    top: -170px; /* Adjust as needed */
+    left: 15%; /* Adjust as needed */
+    padding: 2px 5px;
+    z-index: 2;
+    width: 100px;  /* Set to the width of the largest button */
+    height: 50px;  /* Set to the height of the largest button */
+    text-align: center;  /* Center the text within the button */
+    box-sizing: border-box;  /* Ensure padding and border are included in the element's total width and height */
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .hallway {
+        flex-direction: column;
+        padding-top: 200px;
+    }
+    .frame {
+        width: 200px;
+    }
+    .video {
+        height: 200px;
+    }
+    .button {
+        top: 0; /* Adjusts the vertical position of the button for smaller screens */
+    }
+}
