@@ -3,39 +3,59 @@ import { Container, Typography, IconButton, Link } from '@mui/material';
 import { styled } from '@mui/system';
 import { Facebook, Instagram, Twitter } from '@mui/icons-material';
 
-const FooterContainer = styled(Container)({
+const FooterContainer = styled(Container)(({ theme }) => ({
   backgroundColor: '#000',
   color: '#fff',
   padding: '10px 0',
-  position: 'fixed',  // changed from relative to fixed
-  bottom: 0,  // added to fix the footer to the bottom
+  position: 'fixed',
+  bottom: 0,
+  left: 0, // Ensure it starts from the leftmost part of the screen
   width: '100%',
-  display: "flex",
-  justifyContent: "space-between",  // changed from center to space-between
-  alignItems: "center",
-  minHeight: "10vh",
+  display: 'flex',
+  justifyContent: 'center', // Center children horizontally
+  alignItems: 'center',
+  flexDirection: 'row',
+  boxSizing: 'border-box', // Include padding in width calculations
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+  },
+}));
+
+const ContentWrapper = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  width: '100%', // Make sure the wrapper takes the full width
+  maxWidth: '1200px', // Set a reasonable max width for the content
+  boxSizing: 'border-box', // Include padding in width calculations
 });
 
-const SocialIcons = styled('div')({
-  '& > *': {
-    margin: '0 5px',  // adjusted margin values
+const ContactInfo = styled(Typography)(({ theme }) => ({
+  textAlign: 'center',
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: '10px',
   },
+}));
+
+const SocialIcons = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
 });
 
 const LegalLinks = styled('div')({
-  '& > *': {
-    color: '#f00',
-    textDecoration: 'none',
-    margin: '20px 5px',  // adjusted margin values
-  },
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 });
 
 const Footer = () => {
   return (
     <FooterContainer>
-      <Typography variant="body2">
-        Contact: email@example.com | Phone: 123-456-7890
-      </Typography>
+      <ContentWrapper>
+      <ContactInfo variant="body2">
+        Contact: <br /> email@example.com <br /> Phone: 123-456-7890
+      </ContactInfo>
       <SocialIcons>
         <IconButton color="inherit" aria-label="Facebook" href="https://www.facebook.com">
           <Facebook />
@@ -58,6 +78,7 @@ const Footer = () => {
           User Agreement
         </Link>
       </LegalLinks>
+      </ContentWrapper>
     </FooterContainer>
   );
 };

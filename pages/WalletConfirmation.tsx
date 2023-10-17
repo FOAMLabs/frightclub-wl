@@ -150,7 +150,7 @@ const WalletConfirmation: React.FC<WalletConfirmationProps> = ({
       updateSignatureStatus,
     ]);
   
-    // Move the router.push("/trick"); inside the useEffect
+
     useEffect(() => {
       if (isSuccess) {
         router.push("/Questionairre"); // Redirect to '/trick' only when isSuccess is true
@@ -162,7 +162,7 @@ const WalletConfirmation: React.FC<WalletConfirmationProps> = ({
     <BackgroundImage>
       <Overlay>
         <Typography variant="h4" gutterBottom>
-          Confirm that this is the Ethereum address you want to mint with
+          Confirm the Ethereum address you want to mint with
         </Typography>
 
         <Formik

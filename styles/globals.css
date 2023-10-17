@@ -100,13 +100,23 @@ body {
 }
 
 .myfooter {
+  display: flex;
+  justify-content: space-between; /* Horizontally centers the items */
+  align-items: center;      /* Vertically centers the items */
+  padding: 10px;            /* Adds some padding around the content */
+  width: 100%;              /* Ensures the footer spans the full width of the viewport */ 
   position: fixed;
+  flex-wrap: wrap;
   flex: auto;
   left: 30%;
   bottom: 1%;
-  background-color: #8c0017;
+
   z-index: 3;
   
+}
+
+.myfooter > * {
+  margin: 0 10px; 
 }
 
 
