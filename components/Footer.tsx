@@ -54,7 +54,7 @@ const Footer = () => {
     <FooterContainer>
       <ContentWrapper>
       <ContactInfo variant="body2">
-        Contact: <br /> email@example.com <br /> Phone: 123-456-7890
+        support/contact: <br /> saulweiloveman@gmail.com <br /> 
       </ContactInfo>
       <SocialIcons>
         <IconButton color="inherit" aria-label="Facebook" href="https://www.etherscan.io">

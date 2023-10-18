@@ -20,6 +20,25 @@ body {
   z-index: 1;
 }
 
+/* This will center content vertically and horizontally */
+.background-image.loggedout .button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* This assumes that the background-image div takes up the full viewport height */
+}
+
+/* This will position the button at the upper right with 15px padding when the user logs in */
+.background-image.loggedin .button-wrapper {
+  position: relative;
+}
+
+.background-image.loggedin .button-wrapper ConnectButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
 .background-image-x {
   position: fixed;
   top: 0;

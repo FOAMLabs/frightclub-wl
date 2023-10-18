@@ -107,16 +107,15 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <div className="background-image">
-        <div>
-        {isWalletConnected ? (
-          <VideoComponent handleStepChange={handleStepChange} activeStep={activeStep} signatureCompleted={signatureCompleted} />
+      <div className={`background-image ${isWalletConnected ? 'loggedin' : 'loggedout'}`}>
+        <div className="button-wrapper">
+          {isWalletConnected ? (
+            <VideoComponent handleStepChange={handleStepChange} activeStep={activeStep} signatureCompleted={signatureCompleted} />
           ) : (
             <ConnectButton {...openConnectModal} label="Connect Wallet" />
           )}
         </div>
       </div>
-
 
       {isConfirmationOpen && (
         <WalletConfirmation
