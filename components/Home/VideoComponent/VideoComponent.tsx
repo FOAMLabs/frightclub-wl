@@ -64,13 +64,13 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, handleSt
 };
 const VideoComponent: React.FC<VideoComponentProps> = ({ handleStepChange, activeStep }) => {
     const videoData = [
-        { src: '/VIDEO_1.mp4', label: 'Connect Wallet', href: '/WalletConfirmation' },
-        { src: '/VIDEO_2.mp4', label: 'Verify Google', href: '/page2' },
-        { src: '/VIDEO_3.mp4', label: 'Verify Discord', href: '/page3' },
-        { src: '/VIDEO_4.mp4', label: 'Trivia', href: '/page4' },
-        { src: '/VIDEO_5.mp4', label: 'Completed', href: '/page5' }
+        { src: '/VIDEO_1.mp4', label: 'Get Whitelist', href: '/WalletConfirmation' },
+        { src: '/VIDEO_2.mp4', label: 'Mint', href: '/Mint' },
+        { src: '/VIDEO_3.mp4', label: 'Visit X', href: 'https://x.com/FrightClub_NFT' },
+        { src: '/VIDEO_4.mp4', label: 'Trivia', href: '/Questionairre' },
+        { src: '/VIDEO_5.mp4', label: 'FAQ', href: '/FAQ' }
     ];
-    
+
     return (
         <Container maxWidth="md" className={styles.container}>
             <div className={styles.hallway}>

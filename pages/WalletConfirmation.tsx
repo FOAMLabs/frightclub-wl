@@ -63,17 +63,17 @@ interface SignMessageResult {
     data: string; // You can specify the correct data type if known
   }
 
-interface WalletConfirmationProps {
-  onClose: () => void;
-  updateSignatureStatus: (status: boolean) => void;
-  navigateToVideoComponent: () => void;
-}
-
-const WalletConfirmation: React.FC<WalletConfirmationProps> = ({
-    onClose,
-    updateSignatureStatus,
-    navigateToVideoComponent,
-  }) => {
+  interface WalletConfirmationProps {
+    onClose?: () => void;
+    updateSignatureStatus?: (status: boolean) => void;
+    navigateToVideoComponent?: () => void;
+  }
+  
+  const WalletConfirmation: React.FC<WalletConfirmationProps> = ({
+      onClose = () => {},
+      updateSignatureStatus = () => {},
+      navigateToVideoComponent = () => {},
+    }) => {
     const router = useRouter();
   
     const [isSuccess, setIsSuccess] = useState(false);
@@ -196,9 +196,15 @@ const WalletConfirmation: React.FC<WalletConfirmationProps> = ({
 };
 
 WalletConfirmation.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  updateSignatureStatus: PropTypes.func.isRequired,
-  navigateToVideoComponent: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
+  updateSignatureStatus: PropTypes.func,
+  navigateToVideoComponent: PropTypes.func,
+};
+
+WalletConfirmation.defaultProps = {
+  onClose: () => {},
+  updateSignatureStatus: () => {},
+  navigateToVideoComponent: () => {},
 };
 
 export default WalletConfirmation;

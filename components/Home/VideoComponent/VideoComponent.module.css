@@ -5,26 +5,31 @@
     align-items: center;
     height: 100vh;
     overflow-y: auto;
+    padding-top: 50px; /* Pushing down the entire container for the mp4 images */
 }
 
 .hallway {
+    padding-top: 120px;
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);  
     gap: 2px;
+    
 }
-.hallway > .videoWrapper:nth-last-child(-n+2) {
+
+.hallway > .videoWrapper:nth-last-child(-n+3) {
     grid-column: span 2;
 }
 
 .videoWrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center content vertically within the grid cell */
-    align-items: center;     /* Center content horizontally within the grid cell */
+    justify-content: center;
+    align-items: center;
 }
 
 .frame {
-    width: 300px;
+    width: 255px; /* Reduced size by 15% */
     padding: 5px;
 }
 
@@ -36,8 +41,8 @@
 
 .button {
     position: relative;
-    top: -170px;
-    left: 15%;
+    top: -20px; /* Adjusted */
+    left: calc(50% - 50px); /* Adjusted to bring it to the center */
     padding: 2px 5px;
     z-index: 2;
     width: 100px;
@@ -55,7 +60,7 @@
         grid-column: span 2;
     }
     .frame {
-        width: 275px; 
+        width: 233.75px; /* Reduced size by 15% */
         padding: 5px;
     }
     .video {
@@ -63,34 +68,38 @@
     }
 }
 
-
-
 /* Phone Version */
 @media (max-width: 768px) {
     .hallway {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 1fr);
         gap: 4px;
-        justify-items: center; /* Horizontally centers the items in the grid */
-        align-items: center;   /* Vertically centers the items in the grid */
+        justify-items: center;
+        align-items: center;
     }
     
     .hallway > .videoWrapper:nth-of-type(3) {
         grid-row: 2;
         grid-column: span 2;
+        margin-left: 200px; /* Center adjustment */
+    }
+
+    .hallway > .videoWrapper:nth-of-type(2) {
+        margin-right: -320px; /* Top adjustment */
     }
 
     .hallway > .videoWrapper:nth-last-child(-n+2) {
-        grid-row: 3; /* Ensures the last two videos are in the bottom row */
+        grid-row: 3;
+        margin-left: 30-40px; /* Bottom adjustment */
     }
 
     .frame {
-        width: 230px;
+        width: 195.5px; /* Reduced size by 15% */
         padding: 5px;
     }
 
     .video {
-        height: 230px;
+        height: 200px;
     }
 
     .videoWrapper {
@@ -102,8 +111,8 @@
 
     .button {
         position: relative;
-        top: -50px; /* Adjust as needed for smaller screens */
-        left: 50%;  /* Center button horizontally */
-        transform: translateX(-50%); /* Ensures the button remains centered regardless of its width */
+        top: -5px; /* Adjusted for phone screens */
+        left: calc(90px); /* Centered horizontally */
+        transform: translateX(-50%);
     }
 }

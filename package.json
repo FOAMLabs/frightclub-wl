@@ -51,6 +51,7 @@
     "@types/gyronorm": "^2.0.2",
     "@types/lodash.merge": "^4.6.7",
     "@types/mongodb": "^4.0.7",
+    "@types/mongoose": "^5.11.97",
     "@types/next": "^9.0.0",
     "@types/node": "^18.16.12",
     "@types/passport": "^1.0.13",
