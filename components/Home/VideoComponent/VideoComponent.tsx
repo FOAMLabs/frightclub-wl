@@ -2,6 +2,7 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import styles from './VideoComponent.module.css';
 import { useRouter } from 'next/router';  // Import useRouter from next/router
+import { Button } from '@mui/material';
 
 interface VideoFrameProps {
     videoSrc: string;
@@ -52,13 +53,13 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, handleSt
                 <source src={videoSrc} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
-            <button
+            <Button
                 className={styles.button}
                 onClick={handleClick}  // Attach handleClick function
                 disabled={index > activeStep}
             >
                 {buttonLabel}
-            </button>
+            </Button>
         </div>
     );
 };

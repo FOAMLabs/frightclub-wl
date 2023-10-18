@@ -9,7 +9,7 @@
 }
 
 .hallway {
-    padding-top: 120px;
+    padding-top: 110px;
     display: grid;
 
     grid-template-columns: repeat(4, 1fr);  
@@ -41,10 +41,11 @@
 
 .button {
     position: relative;
-    top: -20px; /* Adjusted */
+    top: -25px; /* Adjusted */
     left: calc(50% - 50px); /* Adjusted to bring it to the center */
     padding: 2px 5px;
     z-index: 2;
+    background: #f0f0f0;
     width: 100px;
     height: 50px;
     text-align: center;
