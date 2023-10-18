@@ -1,8 +1,12 @@
-import { ObjectId } from "mongodb";
+const mongoose = require('mongoose');
 
-export interface UserData {
-  _id?: ObjectId;
-  userID: number;
-  address: string;
-  ipAddress: string;
-}
+const userDataSchema = new mongoose.Schema({
+  userID: Number,
+  address: String,
+  ipAddress: String,
+});
+
+// Check if the model is already registered
+const UserData = mongoose.models.UserData || mongoose.model('UserData', userDataSchema);
+
+module.exports = UserData;

@@ -4,9 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useGesture } from "react-use-gesture";
-import WalletConfirmation from "./WalletConfirmation";
 import { useRouter } from "next/router";
-import VideoComponent from "../components/Home/VideoComponent/VideoComponent";
 import Footer from "../components/Footer";
 import FrightClubMain from "../components/Home/FrightClubMain";
 const Home: NextPage = () => {
@@ -14,18 +12,9 @@ const Home: NextPage = () => {
   const [clickCount, setClickCount] = useState<number>(0);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
-  const [isConfirmationOpen, setConfirmationOpen] = useState(false);
-  const [signatureCompleted, setSignatureCompleted] = useState(false);
   const router = useRouter();
 
-
-  const { openConnectModal, connectModalOpen } = useConnectModal();
-
-  const handleClose = () => {
-    // Toggle the confirmation modal state
-    setConfirmationOpen((prev) => !prev);
-  };
+  const { connectModalOpen } = useConnectModal();
 
   useEffect(() => {
     console.log("connectModalOpen:", connectModalOpen);
@@ -34,19 +23,6 @@ const Home: NextPage = () => {
     }
   }, [connectModalOpen]);
 
-  const handleUpdateSignatureStatus = (status: boolean) => {
-    // Update the signature status
-    setSignatureCompleted(status);
-  };
-
-  const handleNavigateToVideo = () => {
-    // Navigate to the VideoComponent page
-    router.push('/Xpath'); // Replace '/' with the actual path to your VideoComponent page
-  };
-
-  const handleStepChange = (newStep: number) => {
-    setActiveStep(newStep);
-  };
 
   const bind = useGesture({
     onMove: ({ xy: [x, y] }) => {

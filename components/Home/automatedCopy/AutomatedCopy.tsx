@@ -6,6 +6,7 @@ import { styled } from '@mui/system';
 import { useAccount } from 'wagmi';
 
 
+
 const backgrounds = [
   "url('/graveyard-moon.png')",
   "url('/graveyard.png')",
@@ -153,6 +154,7 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
 
   const router = useRouter();
 
+
   useEffect(() => {
     if (isLastQuestionAnswered) {
       setSurveyComplete(true);
@@ -190,35 +192,39 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
   });
 
   useEffect(() => {
+    const saveUserDataToDB = async (UserData:[userID: number, address: string, ipAddress: string]) => {
+
     if (isLastQuestionAnswered && correctAnswers / questions.length >= 0.9) {
       fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => {
           const ipAddress = data.ip;
-
           const userID = Date.now();
-          const address = account.address || ''; // renamed to 'address' from 'walletAddress'
-
-          fetch('/api/saveUserData', {
+          const address = account.address || '';
+          saveUserDataToDB(UserData);
+        });
+    }  
+        try {
+          const response = await fetch('/api/saveUserData', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              userID,
-              address,
-              ipAddress
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.error) {
-              console.error('Error saving user data:', data.error);
-            }
+              UserData
+            }),
           });
-        });
-    }
-  }, [isLastQuestionAnswered, correctAnswers, account]);
+    
+          const data = await response.json();
+          if (data.error) {
+            console.error('Error saving user data:', data.error);
+          }
+        } catch (error) {
+          console.error('Error making fetch request:', error);
+        }
+      };
+  
+      }, [isLastQuestionAnswered, correctAnswers, account]);
 
     return (
       <CenteredContainer activeStep={activeStep}>
