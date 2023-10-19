@@ -1,11 +1,11 @@
 // hooks/useSaveUserData.ts
-interface UserData {
+
+type UserData = {
     userID: number;
     address: string;
     ipAddress: string;
-  }
-  
-  export const useSaveUserData = () => {
+};
+export const useSaveUserData = () => {
     const saveUserDataToDB = async (userData: UserData): Promise<void> => {
       try {
         const response = await fetch('/api/saveUserData', {
@@ -15,6 +15,10 @@ interface UserData {
             'Content-Type': 'application/json',
           },
         });
+        if (!response.ok) {
+          console.error('Failed to save user data:', response.statusText);
+          return;
+        }
         const responseData = await response.json();
         console.log('User data saved:', responseData);
       } catch (error) {
@@ -24,4 +28,3 @@ interface UserData {
     
     return { saveUserDataToDB };
   };
-  

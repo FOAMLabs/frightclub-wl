@@ -9,7 +9,6 @@ export const useSaveBlobData = () => {
     const blobContent = JSON.stringify({ filename, ...blobData });
 
     try {
-      // Save data as a blob
       const response = await fetch(`/api/address/upload/route`, {
         method: 'POST',
         body: blobContent,
@@ -17,10 +16,13 @@ export const useSaveBlobData = () => {
           'Content-Type': 'application/json',
         },
       });
+      if (!response.ok) {
+        console.error('Failed to save blob data:', response.statusText);
+        return;
+      }
       const blobInfo = await response.json();
       console.log('Blob URL:', blobInfo.url);
 
-      // Save data to Postgres database
       await saveUserDataToDB(blobData);
     } catch (error) {
       console.error('Error saving blob data:', error);
