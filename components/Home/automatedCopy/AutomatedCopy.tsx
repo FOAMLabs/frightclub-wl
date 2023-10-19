@@ -147,18 +147,17 @@ type SetSurveyCompleteFunction = (value: boolean) => void;
 
 
 
-const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> = ({ setSurveyComplete }) => {  const [activeStep, setActiveStep] = useState(0);
+const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> = ({ setSurveyComplete }) => {
+  const [activeStep, setActiveStep] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [isLastQuestionAnswered, setLastQuestionAnswered] = useState(false);
   const { saveUserDataToDB } = useSaveUserData();
-    const { saveBlobData } = useSaveBlobData();
   const { typedText, completed } = useTypeAnimation(
     activeStep < questions.length
       ? questions[activeStep].questionText
-      : '', // stop the typing animation after the last question
+      : '',
     80
   );
-
 
   const router = useRouter();
   useEffect(() => {
@@ -191,32 +190,30 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
     }
   };
 
-  
   const account = useAccount({
     onConnect({ address, connector, isReconnected }) {
       console.log("Connected", { address, connector, isReconnected });
-    },
+    } 
   });
-
-
-
-  useEffect(() => {
+    useEffect(() => {
+      if (isLastQuestionAnswered && correctAnswers / questions.length >= 0.9) {
+        fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+            const ipAddress = data.ip;
+            const userID = Date.now();
+            const address = account.address || '';
   
-    if (isLastQuestionAnswered && correctAnswers / questions.length >= 0.9) {
-      fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-          const ipAddress = data.ip;
-          const userID = Date.now();
-          const address = account.address || '';
-          if (address) {
-            saveUserDataToDB({ userID, address, ipAddress });
-          } else {
-            console.error('Address is not defined');
-          }
-        });
-    }
-  }, [isLastQuestionAnswered, correctAnswers, account, saveUserDataToDB]);
+            if (address) {
+              const userData = { userID, address, ipAddress };
+              saveUserDataToDB(userData); // Call your saveUserDataToDB function here
+            } else {
+              console.error('Address is not defined');
+            }
+          });
+      }
+    }, [isLastQuestionAnswered, correctAnswers, account, saveUserDataToDB]);
+    
     return (
       <CenteredContainer activeStep={activeStep}>
         <StyledCard>

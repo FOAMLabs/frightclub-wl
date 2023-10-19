@@ -8,6 +8,7 @@ import WalletConfirmation from "./WalletConfirmation";
 import { useRouter } from "next/router";
 import VideoComponent from "../components/Home/VideoComponent/VideoComponent";
 import Footer from "../components/Footer";
+import TestConnection from "../components/Home/automatedCopy/CheckConnection";
 const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
@@ -125,11 +126,12 @@ const Home: NextPage = () => {
         />
       )}
     
-
+   
       <div className="overlay" ref={overlayRef}></div>
       <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
 
       <div className="myfooter">
+       
       <Footer />
       </div>  
     </div>

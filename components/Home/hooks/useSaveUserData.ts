@@ -10,7 +10,7 @@ type UserData = {
 export const useSaveUserData = () => {
     const saveUserDataToDB = async (userData: UserData): Promise<void> => {
       try {
-        const response = await fetch('/api/saveUserData', {
+        const response = await fetch('/api/postUserData', {
           method: 'POST',
           body: JSON.stringify(userData),
           headers: {
