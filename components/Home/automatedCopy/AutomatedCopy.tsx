@@ -152,9 +152,8 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
     80
   );
 
+
   const router = useRouter();
-
-
   useEffect(() => {
     if (isLastQuestionAnswered) {
       setSurveyComplete(true);
@@ -185,15 +184,33 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
     }
   };
 
+  
   const account = useAccount({
     onConnect({ address, connector, isReconnected }) {
       console.log("Connected", { address, connector, isReconnected });
     },
   });
 
-  useEffect(() => {
-    const saveUserDataToDB = async (UserData:[userID: number, address: string, ipAddress: string]) => {
+  const saveUserDataToDB = async (UserData: { userID: number, address: string, ipAddress: string }) => {
+    const filename = `UserData_${UserData.userID}.json`;
+    const blobData = JSON.stringify({ filename, ...UserData });
+    
+    try {
+      const response = await fetch(`/api/address/upload`, {
+        method: 'POST',
+        body: blobData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const blobInfo = await response.json();
+      console.log('Blob URL:', blobInfo.url);
+    } catch (error) {
+      console.error('Error uploading data:', error);
+    }
+  };
 
+  useEffect(() => {
     if (isLastQuestionAnswered && correctAnswers / questions.length >= 0.9) {
       fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
@@ -201,30 +218,11 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
           const ipAddress = data.ip;
           const userID = Date.now();
           const address = account.address || '';
-          saveUserDataToDB(UserData);
+          saveUserDataToDB({ userID, address, ipAddress });
         });
-    }  
-        try {
-          const response = await fetch('/api/saveUserData', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              UserData
-            }),
-          });
-    
-          const data = await response.json();
-          if (data.error) {
-            console.error('Error saving user data:', data.error);
-          }
-        } catch (error) {
-          console.error('Error making fetch request:', error);
-        }
-      };
-  
-      }, [isLastQuestionAnswered, correctAnswers, account]);
+    }
+  }, [isLastQuestionAnswered, correctAnswers, account]);
+     
 
     return (
       <CenteredContainer activeStep={activeStep}>
