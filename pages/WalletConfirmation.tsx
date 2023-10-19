@@ -89,9 +89,10 @@ interface SignMessageResult {
     const validationSchema = Yup.object().shape({
       field1: Yup.string().required("Field 1 is required"),
     });
+    
   
     const [accountValue] = useState(account?.address || '');
-    const message = 'Please sign this message to confirm your wallet address.';
+    const message = 'Please sign this message to confirm your wallet address for minting Fright Club. This is a read only gasless transaction and requires no permission or approvals on your wallet. Good luck on the trivia...';
     const { signMessage } = useSignMessage({ message });
   
     const signMessageWithResult = async (): Promise<SignMessageResult> => {
@@ -99,7 +100,7 @@ interface SignMessageResult {
       // Assuming your signMessage function returns data upon success, otherwise, replace with actual data.
       const result: SignMessageResult = {
         success: true,
-        data: 'Your data here', // Replace with actual data or remove if not applicable
+        data: 'Mint is open 10/23/23', // Replace with actual data or remove if not applicable
       };
       return result;
     };
