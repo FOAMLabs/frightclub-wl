@@ -7,6 +7,7 @@ import { useGesture } from "react-use-gesture";
 import { useRouter } from "next/router";
 import Footer from "../components/Footer";
 import FrightClubMain from "../components/Home/FrightClubMain";
+import TestConnection from "../components/Home/automatedCopy/CheckConnection";
 const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
@@ -87,7 +88,8 @@ const Home: NextPage = () => {
       <div className="background-image">
     
         <ConnectButton />
-        <FrightClubMain />
+     
+        <TestConnection />
         
 
       <div className="overlay" ref={overlayRef}></div>

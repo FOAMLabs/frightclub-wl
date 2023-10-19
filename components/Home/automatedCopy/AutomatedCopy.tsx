@@ -4,6 +4,8 @@ import { Card, CardContent, RadioGroup, FormControlLabel, Radio, FormControl, Ty
 import { useTypeAnimation } from '../hooks/useTypeAnimation';
 import { styled } from '@mui/system';
 import { useAccount } from 'wagmi';
+import { useSaveUserData } from '../hooks/useSaveUserData';
+import { useSaveBlobData } from '../hooks/useSaveBlobData';
 
 
 
@@ -139,12 +141,17 @@ const questions = [
     },
 ];
 
+
+
 type SetSurveyCompleteFunction = (value: boolean) => void;
+
+
 
 const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> = ({ setSurveyComplete }) => {  const [activeStep, setActiveStep] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [isLastQuestionAnswered, setLastQuestionAnswered] = useState(false);
-
+  const { saveUserDataToDB } = useSaveUserData();
+  const { saveBlobData } = useSaveBlobData();
   const { typedText, completed } = useTypeAnimation(
     activeStep < questions.length
       ? questions[activeStep].questionText
@@ -191,24 +198,7 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
     },
   });
 
-  const saveUserDataToDB = async (UserData: { userID: number, address: string, ipAddress: string }) => {
-    const filename = `UserData_${UserData.userID}.json`;
-    const blobData = JSON.stringify({ filename, ...UserData });
-    
-    try {
-      const response = await fetch(`/api/address/upload`, {
-        method: 'POST',
-        body: blobData,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const blobInfo = await response.json();
-      console.log('Blob URL:', blobInfo.url);
-    } catch (error) {
-      console.error('Error uploading data:', error);
-    }
-  };
+
 
   useEffect(() => {
     if (isLastQuestionAnswered && correctAnswers / questions.length >= 0.9) {
@@ -218,12 +208,14 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
           const ipAddress = data.ip;
           const userID = Date.now();
           const address = account.address || '';
-          saveUserDataToDB({ userID, address, ipAddress });
+          if (address) {
+            saveBlobData({ userID, address, ipAddress });
+          } else {
+            console.error('Address is not defined');
+          }
         });
     }
-  }, [isLastQuestionAnswered, correctAnswers, account]);
-     
-
+  }, [isLastQuestionAnswered, correctAnswers, account, saveBlobData]);
     return (
       <CenteredContainer activeStep={activeStep}>
         <StyledCard>
