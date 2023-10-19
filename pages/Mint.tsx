@@ -89,7 +89,7 @@ const Home: NextPage = () => {
     
         <ConnectButton />
      
-        <TestConnection />
+        <FrightClubMain />
         
 
       <div className="overlay" ref={overlayRef}></div>
