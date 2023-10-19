@@ -151,7 +151,7 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [isLastQuestionAnswered, setLastQuestionAnswered] = useState(false);
   const { saveUserDataToDB } = useSaveUserData();
-  const { saveBlobData } = useSaveBlobData();
+    const { saveBlobData } = useSaveBlobData();
   const { typedText, completed } = useTypeAnimation(
     activeStep < questions.length
       ? questions[activeStep].questionText
@@ -201,6 +201,7 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
 
 
   useEffect(() => {
+  
     if (isLastQuestionAnswered && correctAnswers / questions.length >= 0.9) {
       fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
@@ -209,13 +210,13 @@ const AutomatedCopy: React.FC<{ setSurveyComplete: SetSurveyCompleteFunction }> 
           const userID = Date.now();
           const address = account.address || '';
           if (address) {
-            saveBlobData({ userID, address, ipAddress });
+            saveUserDataToDB({ userID, address, ipAddress });
           } else {
             console.error('Address is not defined');
           }
         });
     }
-  }, [isLastQuestionAnswered, correctAnswers, account, saveBlobData]);
+  }, [isLastQuestionAnswered, correctAnswers, account, saveUserDataToDB]);
     return (
       <CenteredContainer activeStep={activeStep}>
         <StyledCard>
