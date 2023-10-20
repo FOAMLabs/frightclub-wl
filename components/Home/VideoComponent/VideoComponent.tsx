@@ -65,7 +65,7 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, handleSt
 };
 const VideoComponent: React.FC<VideoComponentProps> = ({ handleStepChange, activeStep }) => {
     const videoData = [
-        { src: '/VIDEO_1.mp4', label: 'Get Whitelist', href: '/WalletConfirmation' },
+        { src: '/VIDEO_1.mp4', label: 'WHITELIST QUIZ', href: '/WalletConfirmation' },
         { src: '/VIDEO_2.mp4', label: 'Mint', href: '/Mint' },
         { src: '/VIDEO_3.mp4', label: 'Visit X', href: 'https://x.com/FrightClub_NFT' },
         { src: '/VIDEO_4.mp4', label: 'Trivia', href: '/Questionairre' },

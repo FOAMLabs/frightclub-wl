@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState, useEffect, useRef } from "react";
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
+import Link from "next/link";
 import { useGesture } from "react-use-gesture";
 import { useRouter } from "next/router";
 import Footer from "../components/Footer";
@@ -93,8 +94,9 @@ const Home: NextPage = () => {
         
 
       <div className="overlay" ref={overlayRef}></div>
+      <Link href='/'>
       <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
-
+      </Link>
       <div className="myfooter">
       <Footer />
       </div>  

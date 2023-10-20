@@ -41,7 +41,7 @@ const Home: NextPage = () => {
 
   const handleNavigateToVideo = () => {
     // Navigate to the VideoComponent page
-    router.push('/Xpath'); // Replace '/' with the actual path to your VideoComponent page
+    router.push('/'); // Replace '/' with the actual path to your VideoComponent page
   };
 
   const handleStepChange = (newStep: number) => {
