@@ -3,29 +3,21 @@ import Head from "next/head";
 import { useState, useEffect, useRef } from "react";
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
+import Link from "next/link";
 import { useGesture } from "react-use-gesture";
-import WalletConfirmation from "./WalletConfirmation";
 import { useRouter } from "next/router";
-import VideoComponent from "../components/Home/VideoComponent/VideoComponent";
 import Footer from "../components/Footer";
-
+import FrightClubMain from "../components/Home/FrightClubMain";
+import TestConnection from "../components/Home/automatedCopy/CheckConnection";
+import MintNFTComponent from "../components/Mint/MintingComponent";
 const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
-  const [isConfirmationOpen, setConfirmationOpen] = useState(false);
-  const [signatureCompleted, setSignatureCompleted] = useState(false);
   const router = useRouter();
 
-
-  const { openConnectModal, connectModalOpen } = useConnectModal();
-
-  const handleClose = () => {
-    // Toggle the confirmation modal state
-    setConfirmationOpen((prev) => !prev);
-  };
+  const { connectModalOpen } = useConnectModal();
 
   useEffect(() => {
     console.log("connectModalOpen:", connectModalOpen);
@@ -34,19 +26,6 @@ const Home: NextPage = () => {
     }
   }, [connectModalOpen]);
 
-  const handleUpdateSignatureStatus = (status: boolean) => {
-    // Update the signature status
-    setSignatureCompleted(status);
-  };
-
-  const handleNavigateToVideo = () => {
-    // Navigate to the VideoComponent page
-    router.push('/'); // Replace '/' with the actual path to your VideoComponent page
-  };
-
-  const handleStepChange = (newStep: number) => {
-    setActiveStep(newStep);
-  };
 
   const bind = useGesture({
     onMove: ({ xy: [x, y] }) => {
@@ -108,35 +87,23 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <div className={`background-image ${isWalletConnected ? 'loggedin' : 'loggedout'}`}>
-        <div className="button-wrapper">
-          {isWalletConnected ? (
-            <VideoComponent handleStepChange={handleStepChange} activeStep={activeStep} signatureCompleted={signatureCompleted} />
-          ) : (
-            <ConnectButton {...openConnectModal} label="Connect Wallet" />
-          )}
-        </div>
-      </div>
-
-      {isConfirmationOpen && (
-        <WalletConfirmation
-          onClose={handleClose}
-          updateSignatureStatus={handleUpdateSignatureStatus}
-          navigateToVideoComponent={handleNavigateToVideo}
-        />
-      )}
+      <div className="background-image-z">
     
-   
-      <div className="overlay" ref={overlayRef}></div>
-      <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
+        <ConnectButton />
+     
+        <MintNFTComponent />
+        
 
+      <div className="overlay" ref={overlayRef}></div>
+      <Link href='/'>
+      <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
+      </Link>
       <div className="myfooter">
-       
       <Footer />
       </div>  
+    </div>
     </div>
   );
 };
 
 export default Home;
-
