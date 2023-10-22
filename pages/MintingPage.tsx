@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   const [clickCount, setClickCount] = useState<number>(0);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const router = useRouter();
+
 
   const { connectModalOpen } = useConnectModal();
 

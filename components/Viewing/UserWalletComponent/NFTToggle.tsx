@@ -30,15 +30,18 @@ interface Nft {
 
 const StyledCard = styled(Card)({
   maxWidth: 540,
-  margin: '0 auto',
-  padding: 2,
-  textAlign: 'center',
+
+  margin: "0 auto",
+  padding: 25,
+  textAlign: "center",
   borderRadius: 16,
-  marginTop: '150px',
+  marginTop: "140px",
+  backgroundColor: "rgba(255, 255, 255, 0.4)",
+  boxShadow: "0px 8px 7px rgba(0, 255, 30, 0.3)", // Add a subtle shadow
 });
 
 const SquareImage = styled('div')({
-  width: '100%',
+  width: '20%',
   paddingTop: '40%',
   position: 'relative',
   '& .logo': {
@@ -122,6 +125,25 @@ const NFTComponent = () => {
       console.error(error);
     }
   };
+
+
+  function formatAddress(address?: string) {
+    // Define how many characters you want to keep before and after the dots.
+    const charactersToKeep = 4;
+  
+    if (!address) {
+      return "Address not available";
+    }
+  
+    // Check if the address is long enough to format.
+    if (address.length > 2 * charactersToKeep) {
+      const start = address.slice(0, charactersToKeep);
+      const end = address.slice(-charactersToKeep);
+      return `${start}...${end}`;
+    } else {
+      return address;
+    }
+  }
   
   return (
     <StyledCard>
@@ -148,8 +170,11 @@ const NFTComponent = () => {
       </CardContent>
 
       <CardContent>
-        <Typography variant="h4" component="div" align="center">
-          Wallet
+        <Typography variant="h6" component="div" align="center">
+          User Wallet: <br />
+          </Typography>
+          <Typography variant="h5" component="div" align="center">
+          {formatAddress(address)}
         </Typography>
         <Grid container justifyContent="center" spacing={1}>
           {contractRead.data && !readIsLoading ? (

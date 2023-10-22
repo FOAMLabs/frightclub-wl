@@ -18,14 +18,15 @@ import {
 } from "wagmi";
 
 const StyledCard = styled(Card)({
-  maxWidth: 540,
-  margin: "0 auto",
-  padding: 2,
-  textAlign: "center",
-  borderRadius: 16,
-  marginTop: "250px",
-});
-
+    maxWidth: 540,
+    margin: "0 auto",
+    padding: 20,
+    textAlign: "center",
+    borderRadius: 25,
+    marginTop: "180px",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)", // Add a subtle shadow
+  });
 const MintNFTComponent = () => {
     const [totalSupply, setTotalSupply] = useState<number>(0); // Added a type for totalSupply
     const [maxMintAmountPerTx] = useState<number>(2); // Added a type for maxMintAmountPerTx
@@ -160,30 +161,35 @@ const MintNFTComponent = () => {
       const end = address.slice(-charactersToKeep);
       return `${start}...${end}`;
     } else {
-      return address; // Address is too short to format.
+      return address;
     }
   }
 
   return (
     <StyledCard>
       <CardContent>
-        <Typography variant="h3" component="div" align="center">
-          Mint NFT
+        <Typography variant="h2" component="div" align="center">
+          mint fright club 
         </Typography>
       </CardContent>
 
       <CardContent>
-        <Typography variant="h4" component="div" align="center">
-          address<br />{formatAddress(address)}
-          
-          
-        </Typography>
-      </CardContent>
+        <video width="50%" autoPlay loop muted>
+            <source src="/PreReveal.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        </CardContent>
 
       <CardContent>
         <Typography variant="h6" component="div" align="center">
-          Current Supply: {totalSupplyData?.toString() ?? "Loading..."}
+          address<br />   
         </Typography>
+        <Typography variant="h4" component="div" align="center">
+        {formatAddress(address)}
+        </Typography>
+       
+          
+       
       </CardContent>
 
       <CardContent>

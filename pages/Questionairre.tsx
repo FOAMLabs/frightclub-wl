@@ -3,9 +3,12 @@ import Head from "next/head";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useGesture } from "react-use-gesture";
+import Link from "next/link";
 
 import AutomatedCopy from "../components/Home/automatedCopy/AutomatedCopy";
 import { Card, CardContent, Typography } from "@mui/material";
+
+
 const Questionairre: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
@@ -89,7 +92,9 @@ const Questionairre: NextPage = () => {
         )}
         </div>
       <div className="overlay" ref={overlayRef}></div>
+      <Link href='/'>
       <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
+      </Link>
     </div>
   );
 };

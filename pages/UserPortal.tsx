@@ -85,7 +85,7 @@ const UserPortal: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <div className="background-image">
+      <div className="background-image-y">
         <ConnectButton />
         <Link href='/'>
           <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />

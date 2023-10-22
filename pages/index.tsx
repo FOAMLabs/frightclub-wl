@@ -8,6 +8,7 @@ import WalletConfirmation from "./WalletConfirmation";
 import { useRouter } from "next/router";
 import VideoComponent from "../components/Home/VideoComponent/VideoComponent";
 import Footer from "../components/Footer";
+import AppMenu from "../components/Header";
 
 const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
@@ -107,24 +108,11 @@ const Home: NextPage = () => {
         />
         <link href="/favicon.ico" rel="icon" />
       </Head>
+      <AppMenu />
 
-      <div className={`background-image ${isWalletConnected ? 'loggedin' : 'loggedout'}`}>
-        <div className="button-wrapper">
-          {isWalletConnected ? (
-            <VideoComponent handleStepChange={handleStepChange} activeStep={activeStep} signatureCompleted={signatureCompleted} />
-          ) : (
-            <ConnectButton {...openConnectModal} label="Connect Wallet" />
-          )}
-        </div>
+      <div className={`background-image-x ${isWalletConnected ? 'loggedin' : 'loggedout'}`}>
       </div>
 
-      {isConfirmationOpen && (
-        <WalletConfirmation
-          onClose={handleClose}
-          updateSignatureStatus={handleUpdateSignatureStatus}
-          navigateToVideoComponent={handleNavigateToVideo}
-        />
-      )}
     
    
       <div className="overlay" ref={overlayRef}></div>
