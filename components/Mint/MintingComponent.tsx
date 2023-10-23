@@ -23,7 +23,7 @@ const StyledCard = styled(Card)({
     padding: 20,
     textAlign: "center",
     borderRadius: 25,
-    marginTop: "20px", // Adjusted the top margin
+    marginTop: "170px", // Adjusted the top margin
     backgroundColor: "rgba(255, 255, 255, 0.4)",
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
   });
