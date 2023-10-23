@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -7,8 +7,15 @@ import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
 import { FrightClubABI } from "../../utils/frightclub";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import Snackbar from "@mui/material/Snackbar";
+import Snackbar, { snackbarClasses } from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import MerkleTree from 'merkletreejs';
+import keccak256 from 'keccak256';
+import { WlAddresses } from '../../utils/WlAddresses';
+import Image from "next/image";
+import { Box } from "@mui/material";
+
+
 import {
   useAccount,
   usePrepareContractWrite,
@@ -17,26 +24,44 @@ import {
   useContractRead,
 } from "wagmi";
 
+enum MintStage {
+  WhitelistOnly,
+  Public,
+  
+}
+
 const StyledCard = styled(Card)({
-    maxWidth: 300, // Adjusted the card width
+    maxWidth: 300,
     margin: "0 auto",
     padding: 20,
     textAlign: "center",
     borderRadius: 25,
-    marginTop: "50px", // Adjusted the top margin
+    marginTop: "50px", 
     backgroundColor: "rgba(255, 255, 255, 0.4)",
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
   });
   
 const MintNFTComponent = () => {
-    const [totalSupply, setTotalSupply] = useState<number>(0); // Added a type for totalSupply
-    const [maxMintAmountPerTx] = useState<number>(2); // Added a type for maxMintAmountPerTx
-    const [_mintAmount, setMintAmount] = useState<number>(1); // Added a type for _mintAmount
+
+    const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
+    const [snackbarError, setSnackbarError] = useState<string | null>(null);
+
+    const [totalSupply, setTotalSupply] = useState<number>(0); 
+    const [maxMintAmountPerTx] = useState<number>(3); 
+    const [_mintAmount, setMintAmount] = useState<number>(1);
     const { isConnected, address } = useAccount();
-    const { connectModalOpen } = useConnectModal(); // Removed openConnectModal
-    const [isWalletConnected, setIsWalletConnected] = useState<boolean>(true); // Added a type for isWalletConnected
-    
-    
+    const [mintStage, setMintStage] = useState<MintStage>(MintStage.WhitelistOnly);
+    const { connectModalOpen } = useConnectModal(); 
+    const [isWalletConnected, setIsWalletConnected] = useState<boolean>(true); 
+    const addresses = WlAddresses;
+    const leaves = useMemo(() => addresses.map(x => keccak256(x)), [addresses]);
+    const tree = useMemo(() => new MerkleTree(leaves, keccak256, { sortPairs: true }), [leaves]);
+    const buf2hex = (x: Buffer): string => '0x' + x.toString('hex');
+  
+    console.log(buf2hex(tree.getRoot()));
+  
+    const [leaf, setLeaf] = useState<string>(''); // Set initially to an empty string
+    const [_merkleProof, setMerkleProof] = useState<string[]>([]); // Set initially to an empty array
     useEffect(() => {
       console.log("connectModalOpen:", connectModalOpen);
       if (connectModalOpen) {
@@ -50,6 +75,16 @@ const MintNFTComponent = () => {
         },
       });
     
+    useEffect(() => {
+      if (address) {
+        const newLeaf = keccak256(address).toString('hex');
+        setLeaf(newLeaf);
+        const newProof = tree.getProof(newLeaf).map(({ data }) => buf2hex(data));
+        setMerkleProof(newProof);
+      }
+    }, [address, tree]);
+    
+
     
   const contractConfig = {
     address: "0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510",
@@ -77,6 +112,15 @@ const MintNFTComponent = () => {
   const decimalNumber = 0.02;
   const mintAmountInWei = BigInt(decimalNumber * _mintAmount * 1e18); // 1e18 is used to convert to Wei
 
+  const { write, error: whitelistMintError, } = useContractWrite({
+    address: "0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510",
+    abi: FrightClubABI,
+    functionName:'whitelistMint',
+    args:[BigInt(_mintAmount),(_merkleProof)],
+    value: BigInt(mintAmountInWei)
+  });
+
+
   const { config: writeConfig } = usePrepareContractWrite({
     address: "0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510",
     abi: FrightClubABI,
@@ -87,7 +131,7 @@ const MintNFTComponent = () => {
 
   const {
     data: mintData,
-    write,
+    write: mint,
     isLoading: isMintLoading,
     isSuccess: isMintStarted,
     error: mintError,
@@ -123,19 +167,39 @@ const MintNFTComponent = () => {
   };
 
   
-  // Mint NFT function
   const mintNFT = async () => {
     try {
-      if (write) {
-        // You can customize arguments, gas, and other transaction parameters here.
-        // Call the mint function from your smart contract
-        await write();
-
-        // Check if the transaction was successful (no error thrown)
-        if (txData && !txError) {
-          // Update the totalSupply state after a successful mint
-          setTotalSupply(totalSupply + _mintAmount);
+      if (mintStage === MintStage.WhitelistOnly) {
+        // If the mint stage is WhitelistOnly, use the whitelistMint function
+        if (write) {  // Assuming `write` is the function to handle whitelist minting
+          await write();
+          if (whitelistMintError?.message.includes('The total cost (gas * gas fee + value)')){
+            setSnackbarError("You Gotta Get Some More Ethereum... Happy Halloween")
+          }
+          if (whitelistMintError?.message.includes('Address already claimed!')) {
+            setSnackbarError("boo... you already minted")
+        }else if (whitelistMintError?.message.includes('Invalid proof!')){
+            setSnackbarError("You are not on the whitelist!");
+          } 
+          
+        } else {
+          console.error('Whitelist mint function is not available.');
         }
+      } else if (mintStage === MintStage.Public) {
+        // If the mint stage is Public, use the mint function
+        if (mint) {
+          await mint();
+          // ... additional logic for handling public minting
+        } else {
+          console.error('Mint function is not available.');
+        }
+      } else {
+        console.error('Invalid mint stage.');
+      }
+  
+      // Check if the transaction was successful (no error thrown)
+      if (txData && !txError) {
+        return;
       }
     } catch (error) {
       if (typeof error === "string") {
@@ -147,7 +211,6 @@ const MintNFTComponent = () => {
       }
     }
   };
-
   function formatAddress(address?: string) {
     // Define how many characters you want to keep before and after the dots.
     const charactersToKeep = 4;
@@ -168,7 +231,19 @@ const MintNFTComponent = () => {
 
   return (
     <StyledCard>
-
+      <CardContent>
+      <Box sx={{
+          display: "block",
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: 1,
+          marginBottom: 1,
+          maxWidth: "100%",
+          borderRadius: "10px"
+        }}>
+          <Image src="/logo.svg" alt="Logo" width={100} height={40} />
+        </Box>
+      </CardContent>
       <CardContent>
         <video width="100%" autoPlay loop muted>
           <source src="/PreReveal.mp4" type="video/mp4" />
@@ -198,7 +273,7 @@ const MintNFTComponent = () => {
           </Grid>
           <Grid item>
             <Typography variant="h6" component="div" align="center">
-              Mint Amount: {_mintAmount}
+              {_mintAmount}
             </Typography>
           </Grid>
           <Grid item>
@@ -237,6 +312,14 @@ const MintNFTComponent = () => {
         </Typography>
       )}
 
+        {snackbarError && (
+          <Snackbar open={!!snackbarError} autoHideDuration={6000} onClose={() => setSnackbarError(null)}>
+            <MuiAlert onClose={() => setSnackbarError(null)} severity="error">
+              {snackbarError}
+            </MuiAlert>
+          </Snackbar>
+        )}
+
       {txError && (
         <Snackbar open={!!txError} autoHideDuration={6000} onClose={handleSnackbarClose}>
           <MuiAlert onClose={handleSnackbarClose} severity="error">
@@ -257,6 +340,3 @@ const MintNFTComponent = () => {
 
 export default MintNFTComponent;
 
-function setSnackbarOpen(arg0: boolean) {
-    throw new Error("Function not implemented.");
-}
