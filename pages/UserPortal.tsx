@@ -93,9 +93,7 @@ const UserPortal: NextPage = () => {
         <NFTComponent />
       </div>
       <div className="overlay" ref={overlayRef}></div>
-      <div className="myfooter">
-        <Footer />
-      </div>
+
     </div>
   );
 };

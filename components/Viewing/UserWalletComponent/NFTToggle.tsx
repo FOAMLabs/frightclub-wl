@@ -29,16 +29,16 @@ interface Nft {
 }
 
 const StyledCard = styled(Card)({
-  maxWidth: 540,
-
+  maxWidth: 440, // Adjusted the card width
   margin: "0 auto",
-  padding: 25,
+  padding: 20,
   textAlign: "center",
-  borderRadius: 16,
-  marginTop: "140px",
+  borderRadius: 25,
+  marginTop: "130px", // Adjusted the top margin
   backgroundColor: "rgba(255, 255, 255, 0.4)",
-  boxShadow: "0px 8px 7px rgba(0, 255, 30, 0.3)", // Add a subtle shadow
+  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
 });
+
 
 const SquareImage = styled('div')({
   width: '20%',
