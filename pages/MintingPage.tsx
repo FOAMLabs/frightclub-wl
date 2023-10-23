@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import {useAccount} from 'wagmi';
 import { useState, useEffect, useRef } from "react";
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+
   const [isWalletConnected, setIsWalletConnected] = useState(false);
 
 
@@ -29,11 +31,10 @@ const Home: NextPage = () => {
   }, []);
 
 
+  const isUserLoggedIn = useAccount().isConnected; // Modify this based on your actual user authentication logic
+
   useEffect(() => {
     console.log("connectModalOpen:", connectModalOpen);
-    if (connectModalOpen) {
-      setIsWalletConnected(true);
-    }
   }, [connectModalOpen]);
 
 
@@ -102,15 +103,22 @@ const Home: NextPage = () => {
        
      
       {isLoading ? (
-        <Card>
-          <CardContent style={{ textAlign: 'center' }}>
-            <CircularProgress />
-            <div>Loading...</div>
-          </CardContent>
-        </Card>
-      ) : (
-        isWalletConnected && <MintNFTComponent />
-      )}
+          <Card>
+            <CardContent style={{ textAlign: 'center' }}>
+              <CircularProgress />
+              <div>Loading...</div>
+            </CardContent>
+          </Card>
+        ) : (
+          isUserLoggedIn ? (
+            <MintNFTComponent />
+          ) : (
+            // Render other content if the user is not logged in
+            <div>
+              {/* ... (your other content) */}
+            </div>
+          )
+        )}
 
       <div className="overlay" ref={overlayRef}></div>
 

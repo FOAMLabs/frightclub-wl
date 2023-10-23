@@ -29,7 +29,9 @@ export default function AppMenu() {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
+                        sx={{ 
+                            mr: 2 
+                            }}
                         onClick={openMenu}
                     >
                         <MenuIcon />
@@ -51,6 +53,10 @@ export default function AppMenu() {
                 transformOrigin={{
                     vertical: 'top',
                     horizontal: 'left',
+                }}
+                sx={{
+                    opacity:'80%',
+            
                 }}
             
             >

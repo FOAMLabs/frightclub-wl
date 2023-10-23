@@ -1,9 +1,10 @@
 // VideoComponent.tsx
-import React from 'react';
+import React  from 'react';
 import Container from '@mui/material/Container';
 import styles from './VideoComponent.module.css';
 import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
+import {useState} from 'react'
 
 interface VideoFrameProps {
     videoSrc: string;
@@ -19,12 +20,55 @@ interface VideoComponentProps {
 const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href, disabled }) => {
     const videoRef = React.useRef<HTMLVideoElement>(null);
     const router = useRouter();
+    const [isPlaying, setIsPlaying] = useState(false);
 
     React.useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play().catch(error => console.error(error));
+        const currentVideoRef = videoRef.current; // Create a local reference
+    
+        const handleMouseEnter = () => {
+            if (currentVideoRef && !disabled) {
+                currentVideoRef.play();
+                setIsPlaying(true);
+            }
+        };
+    
+        const handleMouseLeave = () => {
+            if (currentVideoRef && !disabled) {
+                currentVideoRef.pause();
+                setIsPlaying(false);
+            }
+        };
+    
+        if (currentVideoRef) {
+            // Set loop and playsInline attributes
+            currentVideoRef.loop = true;
+            currentVideoRef.playsInline = true;
+    
+            // Add event listeners for mouse enter and leave
+            currentVideoRef.addEventListener('mouseenter', handleMouseEnter);
+            currentVideoRef.addEventListener('mouseleave', handleMouseLeave);
+    
+            // Cleanup event listeners when the component unmounts
+            return () => {
+                currentVideoRef.removeEventListener('mouseenter', handleMouseEnter);
+                currentVideoRef.removeEventListener('mouseleave', handleMouseLeave);
+            };
         }
-    }, []);
+    }, [disabled]);
+    
+    const handleMouseEnter = () => {
+        if (videoRef.current && !disabled) {
+            videoRef.current.play();
+            setIsPlaying(true);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (videoRef.current && !disabled) {
+            videoRef.current.pause();
+            setIsPlaying(false);
+        }
+    };
 
     const handleClick = () => {
         router.push(href);
@@ -34,7 +78,7 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href, di
         <div className={styles.frame}>
             <video 
                 ref={videoRef} 
-                autoPlay 
+               
                 muted 
                 loop 
                 playsInline

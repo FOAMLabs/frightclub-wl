@@ -4,11 +4,10 @@ import { styled } from '@mui/system';
 import { Facebook, Instagram, Twitter } from '@mui/icons-material';
 
 const FooterContainer = styled(Container)(({ theme }) => ({
-  backgroundColor: '#000',
+  backgroundColor: '#0000000',
   color: '#fff',
-  padding: '10px 0',
   position: 'fixed',
-  bottom: 0,
+  bottom: 40,
   left: 0, // Ensure it starts from the leftmost part of the screen
   width: '100%',
   display: 'flex',
@@ -62,14 +61,15 @@ const Footer = () => {
         </IconButton>
       </SocialIcons>
       <LegalLinks>
-        <Link href="/privacy-policy" underline="none">
-          Privacy Policy
+        <Link href='https://twitter.com/saul_loveman' underline="none">
+         MADE BY:
         </Link>
-        <Link href="/terms-of-service" underline="none">
-          Terms of Service
+        <Link  underline="none" href="https://twitter.com/saulloveman">
+          FOAM Softwares
         </Link>
+     
         <Link href="/user-agreement" underline="none">
-          User Agreement
+      
         </Link>
       </LegalLinks>
       </ContentWrapper>
