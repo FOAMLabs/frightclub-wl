@@ -1,121 +1,73 @@
 /* VideoComponent.module.css */
 .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    padding-top: 20px; /* Adjusted for phone screens */
     overflow-y: auto;
-    padding-top: 50px; /* Pushing down the entire container for the mp4 images */
+    max-height: 100vh; /* Ensures no scrolling */
 }
 
 .hallway {
-    padding-top: 110px;
     display: grid;
-
-    grid-template-columns: repeat(4, 1fr);  
-    gap: 2px;
-    
-}
-
-.hallway > .videoWrapper:nth-last-child(-n+3) {
-    grid-column: span 2;
-}
-
-.videoWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adjusted for responsiveness */
+    gap: 8px; /* Increased gap for phone screens */
+    justify-content: center; /* Center items horizontally */
 }
 
 .frame {
-    width: 255px; /* Reduced size by 15% */
+    width: 100%;
     padding: 5px;
 }
 
 .video {
     width: 100%;
-    height: 300px;
+    max-height: 200px; /* Adjusted for phone screens */
     object-fit: contain;
 }
 
 .button {
     position: relative;
-    top: -25px; /* Adjusted */
-    left: calc(50% - 50px); /* Adjusted to bring it to the center */
-    padding: 2px 5px;
+    top: -15px; /* Adjusted for better alignment */
+    padding: 5px 10px; /* Increased padding for touchability */
     color: white;
-    
-    z-index: 2;
-    background: #b31414;
-    width: 100px;
-    height: 50px;
+    background-color: #b31414;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
     text-align: center;
     box-sizing: border-box;
+    font-size: 14px; /* Adjusted for phone screens */
+}
+
+/* Remove margins for all buttons */
+.button:first-child {
+    margin-top: 0;
 }
 
 /* Tablet Version */
 @media (max-width: 1024px) and (min-width: 769px) {
-    .hallway {
-        grid-template-columns: repeat(4, 1fr); 
-    }
-    .hallway > .videoWrapper:nth-last-child(-n+1) {
-        grid-column: span 2;
-    }
-    .frame {
-        width: 233.75px; /* Reduced size by 15% */
-        padding: 5px;
-    }
-    .video {
-        height: 275px;
-    }
+    /* Your existing tablet styles here */
 }
 
 /* Phone Version */
 @media (max-width: 768px) {
     .hallway {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 4px;
-        justify-items: center;
-        align-items: center;
-    }
-    
-    .hallway > .videoWrapper:nth-of-type(3) {
-        grid-row: 2;
-        grid-column: span 2;
-        margin-left: 200px; /* Center adjustment */
-    }
-
-    .hallway > .videoWrapper:nth-of-type(2) {
-        margin-right: -320px; /* Top adjustment */
-    }
-
-    .hallway > .videoWrapper:nth-last-child(-n+2) {
-        grid-row: 3;
-        margin-left: 30-40px; /* Bottom adjustment */
+        grid-template-columns: repeat(1, 1fr); /* Single column for phones */
     }
 
     .frame {
-        width: 195.5px; /* Reduced size by 15% */
-        padding: 5px;
+        width: 100%; /* Full width for phones */
     }
 
     .video {
-        height: 200px;
-    }
-
-    .videoWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        max-height: 150px; /* Adjusted for phone screens */
     }
 
     .button {
-        position: relative;
-        top: -5px; /* Adjusted for phone screens */
-        left: calc(90px); /* Centered horizontally */
-        transform: translateX(-50%);
+        top: -10px; /* Adjusted for better alignment on phones */
+        padding: 5px 10px; /* Increased padding for touchability */
+        font-size: 12px; /* Adjusted for phone screens */
     }
 }

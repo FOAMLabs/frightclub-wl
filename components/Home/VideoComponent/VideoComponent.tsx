@@ -1,4 +1,5 @@
-import * as React from 'react';
+// VideoComponent.tsx
+import React from 'react';
 import Container from '@mui/material/Container';
 import styles from './VideoComponent.module.css';
 import { useRouter } from 'next/router';
@@ -18,17 +19,11 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href }) 
     const videoRef = React.useRef<HTMLVideoElement>(null);
     const router = useRouter();
 
-    const handleMouseEnter = () => {
+    React.useEffect(() => {
         if (videoRef.current) {
-            videoRef.current.play();
+            videoRef.current.play().catch(error => console.error(error));
         }
-    };
-
-    const handleMouseLeave = () => {
-        if (videoRef.current) {
-            videoRef.current.pause();
-        }
-    };
+    }, []);
 
     const handleClick = () => {
         router.push(href);
@@ -41,9 +36,8 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href }) 
                 autoPlay 
                 muted 
                 loop 
+                playsInline  // Add this to ensure autoplay on mobile
                 className={styles.video}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
             >
                 <source src={videoSrc} type="video/mp4" />
                 Your browser does not support the video tag.
