@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import Footer from "../components/Footer";
 import FrightClubMain from "../components/Home/FrightClubMain";
 import TestConnection from "../components/Home/automatedCopy/CheckConnection";
+import { AppBar } from "@mui/material";
 const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
@@ -88,7 +89,7 @@ const Home: NextPage = () => {
 
       <div className="background-image">
     
-        <ConnectButton />
+        <AppBar />
      
         <FrightClubMain />
         

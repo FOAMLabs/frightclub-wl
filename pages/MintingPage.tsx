@@ -5,11 +5,9 @@ import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import Link from "next/link";
 import { useGesture } from "react-use-gesture";
-import { useRouter } from "next/router";
-import Footer from "../components/Footer";
-import FrightClubMain from "../components/Home/FrightClubMain";
-import TestConnection from "../components/Home/automatedCopy/CheckConnection";
 import MintNFTComponent from "../components/Mint/MintingComponent";
+import { AppBar } from "@mui/material";
+import AppMenu from "../components/Header";
 const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
@@ -88,15 +86,15 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="background-image-z">
-    
-        <ConnectButton />
+      <AppMenu />
+       
      
         <MintNFTComponent />
         
 
       <div className="overlay" ref={overlayRef}></div>
       <Link href='/'>
-      <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
+      <Image src="/logo.svg" alt="Logo" width={250} height={100} className="logo" />
       </Link>
 
     </div>
