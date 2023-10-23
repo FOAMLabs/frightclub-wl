@@ -18,15 +18,16 @@ import {
 } from "wagmi";
 
 const StyledCard = styled(Card)({
-    maxWidth: 540,
+    maxWidth: 300, // Adjusted the card width
     margin: "0 auto",
     padding: 20,
     textAlign: "center",
     borderRadius: 25,
-    marginTop: "180px",
+    marginTop: "20px", // Adjusted the top margin
     backgroundColor: "rgba(255, 255, 255, 0.4)",
-    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)", // Add a subtle shadow
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
   });
+  
 const MintNFTComponent = () => {
     const [totalSupply, setTotalSupply] = useState<number>(0); // Added a type for totalSupply
     const [maxMintAmountPerTx] = useState<number>(2); // Added a type for maxMintAmountPerTx
@@ -167,29 +168,21 @@ const MintNFTComponent = () => {
 
   return (
     <StyledCard>
+
       <CardContent>
-        <Typography variant="h2" component="div" align="center">
-          mint fright club 
-        </Typography>
+        <video width="100%" autoPlay loop muted>
+          <source src="/PreReveal.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </CardContent>
 
       <CardContent>
-        <video width="50%" autoPlay loop muted>
-            <source src="/PreReveal.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>
-        </CardContent>
-
-      <CardContent>
         <Typography variant="h6" component="div" align="center">
-          address<br />   
+          address<br />
         </Typography>
         <Typography variant="h4" component="div" align="center">
-        {formatAddress(address)}
+          {formatAddress(address)}
         </Typography>
-       
-          
-       
       </CardContent>
 
       <CardContent>

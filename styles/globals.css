@@ -195,3 +195,47 @@ a {
     top: calc(10px + 50% + 50px + 200px);
   }
 }
+
+/* Phone Version */
+@media (max-width: 768px) {
+  .container {
+    align-items: center;
+  }
+
+  .overlay {
+    display: none; /* Hide the overlay for phones */
+  }
+
+  .myfooter {
+    left: 0;
+    bottom: 0;
+  }
+
+  .background-image,
+  .background-image-x,
+  .background-image-y,
+  .background-image-z {
+    background-size: contain;
+  }
+
+  .background-image-z {
+    background-size: cover; /* Adjust as needed for the specific image */
+  }
+
+  .menu-items,
+  .menu {
+    top: 100px;
+    width: 50%; /* Adjust the width for better responsiveness */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Additional CSS rules for better spacing and centering */
+  .menu-items {
+    top: calc(10px + 50% + 50px + 100px);
+  }
+
+  .menu {
+    top: calc(10px + 50% + 50px + 200px);
+  }
+}

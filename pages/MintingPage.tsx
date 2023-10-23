@@ -98,9 +98,7 @@ const Home: NextPage = () => {
       <Link href='/'>
       <Image src="/logo.svg" alt="Logo" width={500} height={200} className="logo" />
       </Link>
-      <div className="myfooter">
-      <Footer />
-      </div>  
+
     </div>
     </div>
   );

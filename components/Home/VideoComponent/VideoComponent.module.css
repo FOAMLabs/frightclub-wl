@@ -49,6 +49,7 @@
 /* Tablet Version */
 @media (max-width: 1024px) and (min-width: 769px) {
     /* Your existing tablet styles here */
+    /* You can override specific styles for tablets here */
 }
 
 /* Phone Version */
@@ -70,4 +71,10 @@
         padding: 5px 10px; /* Increased padding for touchability */
         font-size: 12px; /* Adjusted for phone screens */
     }
+}
+
+/* Full-Sized Screens and Tablets */
+@media (min-width: 1025px) {
+    /* Reset any styles you want for full-sized screens and tablets */
+    /* You can add specific styles for larger screens here */
 }
