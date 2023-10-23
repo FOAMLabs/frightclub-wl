@@ -9,13 +9,14 @@ interface VideoFrameProps {
     videoSrc: string;
     buttonLabel: string;
     href: string;
+    disabled?: boolean; // Make the disabled property optional
 }
 
 interface VideoComponentProps {
     signatureCompleted: boolean;
 }
 
-const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href }) => {
+const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href, disabled }) => {
     const videoRef = React.useRef<HTMLVideoElement>(null);
     const router = useRouter();
 
@@ -36,7 +37,7 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href }) 
                 autoPlay 
                 muted 
                 loop 
-                playsInline  // Add this to ensure autoplay on mobile
+                playsInline
                 className={styles.video}
             >
                 <source src={videoSrc} type="video/mp4" />
@@ -45,6 +46,7 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href }) 
             <Button
                 className={styles.button}
                 onClick={handleClick}
+                disabled={disabled || false} // Provide a default value of false if disabled is not provided
             >
                 {buttonLabel}
             </Button>
@@ -54,9 +56,9 @@ const VideoFrame: React.FC<VideoFrameProps> = ({ videoSrc, buttonLabel, href }) 
 
 const VideoComponent: React.FC<VideoComponentProps> = ({ signatureCompleted }) => {
     const videoData = [
-        { videoSrc: '/VIDEO_1.mp4', buttonLabel: 'whitelist quiz', href: '/WalletConfirmation' },
+        { videoSrc: '/VIDEO_1.mp4', buttonLabel: 'Home', href: '/' },
         { videoSrc: '/VIDEO_2.mp4', buttonLabel: 'Mint', href: '/MintingPage' },
-        { videoSrc: '/VIDEO_3.mp4', buttonLabel: 'User Portal', href: '/UserPortal' },
+        { videoSrc: '/VIDEO_3.mp4', buttonLabel: 'User Portal', disable: true, href: '/UserPortal' },
         { videoSrc: '/VIDEO_4.mp4', buttonLabel: 'Retry Trivia', href: '/Questionairre' },
         { videoSrc: '/VIDEO_5.mp4', buttonLabel: 'FAQ', href: '/FAQ' }
     ];
@@ -70,6 +72,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ signatureCompleted }) =
                             videoSrc={video.videoSrc}
                             buttonLabel={video.buttonLabel}
                             href={video.href}
+                            disabled={video.disable || false} // Provide a default value of false if disable is not provided
                         />
                     </div>
                 ))}

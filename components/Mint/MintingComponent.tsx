@@ -113,7 +113,7 @@ const MintNFTComponent = () => {
   const mintAmountInWei = BigInt(decimalNumber * _mintAmount * 1e18); // 1e18 is used to convert to Wei
 
   const { write, error: whitelistMintError, } = useContractWrite({
-    address: "0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510",
+    address: '0x46b77a64dCeE752dd4F9e5b26A5273B2e182e57A',
     abi: FrightClubABI,
     functionName:'whitelistMint',
     args:[BigInt(_mintAmount),(_merkleProof)],
@@ -122,7 +122,7 @@ const MintNFTComponent = () => {
 
 
   const { config: writeConfig } = usePrepareContractWrite({
-    address: "0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510",
+    address: '0x46b77a64dCeE752dd4F9e5b26A5273B2e182e57A',
     abi: FrightClubABI,
     functionName: "mint",
     args: [BigInt(_mintAmount)],
@@ -241,7 +241,7 @@ const MintNFTComponent = () => {
           maxWidth: "100%",
           borderRadius: "10px"
         }}>
-          <Image src="/logo.svg" alt="Logo" width={100} height={40} />
+          <Image src="/logo.svg" alt="Logo" width={200} height={80} />
         </Box>
       </CardContent>
       <CardContent>
@@ -267,6 +267,17 @@ const MintNFTComponent = () => {
               variant="contained"
               onClick={decrementMintAmount}
               disabled={_mintAmount <= 1 || isMintLoading}
+              sx={{
+                backgroundColor: "#B31414",
+                "&:hover": {
+                  // The styles you want when the button is hovered can go here.
+                  // This is optional and just an example.
+                  backgroundColor: "#9F1111",
+                },
+                "&:active": {
+                  backgroundColor: "black",
+                }
+              }}
             >
               -
             </Button>
@@ -280,6 +291,17 @@ const MintNFTComponent = () => {
             <Button
               variant="contained"
               onClick={incrementMintAmount}
+              sx={{
+                backgroundColor: "#B31414",
+                "&:hover": {
+                  // The styles you want when the button is hovered can go here.
+                  // This is optional and just an example.
+                  backgroundColor: "#9F1111",
+                },
+                "&:active": {
+                  backgroundColor: "black",
+                }
+              }}
               disabled={_mintAmount >= maxMintAmountPerTx || isMintLoading}
             >
               +
@@ -297,6 +319,18 @@ const MintNFTComponent = () => {
             <Button
               variant="contained"
               onClick={mintNFT}
+              sx={{
+                backgroundColor: "#B31414",
+                "&:hover": {
+                  // The styles you want when the button is hovered can go here.
+                  // This is optional and just an example.
+                  backgroundColor: "#9F1111",
+                },
+                "&:active": {
+                  backgroundColor: "black",
+                }
+              }}
+            
               disabled={_mintAmount <= 0 || isMintLoading}
             >
               Mint NFT

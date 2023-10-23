@@ -6,8 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useGesture } from "react-use-gesture";
 import MintNFTComponent from "../components/Mint/MintingComponent";
-import { AppBar } from "@mui/material";
+import { AppBar, Card, CardContent, CircularProgress} from "@mui/material";
 import AppMenu from "../components/Header";
+
 const Home: NextPage = () => {
   const [flashlightSize, setFlashlightSize] = useState<number>(75);
   const [clickCount, setClickCount] = useState<number>(0);
@@ -16,6 +17,17 @@ const Home: NextPage = () => {
 
 
   const { connectModalOpen } = useConnectModal();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    // Clear the timer when the component unmounts
+    return () => clearTimeout(timer);
+  }, []);
+
 
   useEffect(() => {
     console.log("connectModalOpen:", connectModalOpen);
@@ -89,8 +101,16 @@ const Home: NextPage = () => {
       <AppMenu />
        
      
-        <MintNFTComponent />
-        
+      {isLoading ? (
+        <Card>
+          <CardContent style={{ textAlign: 'center' }}>
+            <CircularProgress />
+            <div>Loading...</div>
+          </CardContent>
+        </Card>
+      ) : (
+        isWalletConnected && <MintNFTComponent />
+      )}
 
       <div className="overlay" ref={overlayRef}></div>
 

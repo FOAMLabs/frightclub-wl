@@ -73,7 +73,7 @@ const NFTComponent = () => {
   useEffect(() => {
     const getNftMetadata = async () => {
       const contract = {
-        address: '0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510',
+        address: '0x46b77a64dCeE752dd4F9e5b26A5273B2e182e57A',
         tokenId: _tokenId,
       };
     
@@ -94,7 +94,7 @@ const NFTComponent = () => {
   }, [_tokenId, alchemy.nft]);
 
   const contractRead = useContractRead({
-    address: '0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510',
+    address: '0x46b77a64dCeE752dd4F9e5b26A5273B2e182e57A',
     abi: FrightClubABI,
     functionName: 'tokensOfOwner',
     args: [address],
@@ -107,7 +107,7 @@ const NFTComponent = () => {
   };
 
   const { config: writeConfig } = usePrepareContractWrite({
-    address: '0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510',
+    address: '0x46b77a64dCeE752dd4F9e5b26A5273B2e182e57A',
     abi: FrightClubABI,
     functionName: 'setFaceState',
     args: [_tokenId, selectedFaceState], // Use the selected face state

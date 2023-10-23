@@ -57,12 +57,6 @@ const Footer = () => {
         support/contact: <br /> saulweiloveman@gmail.com <br /> 
       </ContactInfo>
       <SocialIcons>
-        <IconButton color="inherit" aria-label="Facebook" href="https://www.etherscan.io">
-          <Facebook />
-        </IconButton>
-        <IconButton color="inherit" aria-label="Instagram" href="https://www.opensea.io">
-          <Instagram />
-        </IconButton>
         <IconButton color="inherit" aria-label="Twitter" href="https://www.twitter.com/FrightClub_NFT">
           <Twitter />
         </IconButton>

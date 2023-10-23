@@ -211,15 +211,14 @@ a {
     bottom: 0;
   }
 
+  /* Add this line to make the background images cover the whole screen */
   .background-image,
   .background-image-x,
   .background-image-y,
   .background-image-z {
-    background-size: contain;
-  }
-
-  .background-image-z {
-    background-size: cover; /* Adjust as needed for the specific image */
+    background-size: cover;
+    background-repeat: no-repeat; /* Prevent background image repetition */
+    background-position: center center; /* Center the background image */
   }
 
   .menu-items,

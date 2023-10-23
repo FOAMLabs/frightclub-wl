@@ -52,16 +52,7 @@ export default function AppMenu() {
                     vertical: 'top',
                     horizontal: 'left',
                 }}
-                PaperProps={{
-                    sx: {
-                        backgroundColor: 'black',
-                        display: 'flex',
-                        flexDirection: 'column', // Align content vertically
-                        alignItems: 'center', // Center items horizontally
-                        padding: '20px', // Add padding
-                        borderRadius: '0', // Remove border-radius
-                    },
-                }}
+            
             >
                 <VideoComponent signatureCompleted={true} />
             </Popover>
