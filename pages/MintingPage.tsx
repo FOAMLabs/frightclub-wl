@@ -93,9 +93,6 @@ const Home: NextPage = () => {
         
 
       <div className="overlay" ref={overlayRef}></div>
-      <Link href='/'>
-      <Image src="/logo.svg" alt="Logo" width={250} height={100} className="logo" />
-      </Link>
 
     </div>
     </div>
