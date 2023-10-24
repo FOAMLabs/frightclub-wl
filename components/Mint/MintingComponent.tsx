@@ -112,13 +112,6 @@ const MintNFTComponent = () => {
   const decimalNumber = 0.02;
   const mintAmountInWei = BigInt(decimalNumber * _mintAmount * 1e18); // 1e18 is used to convert to Wei
 
-  const { write, error: whitelistMintError, } = useContractWrite({
-    address: '0x46b77a64dCeE752dd4F9e5b26A5273B2e182e57A',
-    abi: FrightClubABI,
-    functionName:'whitelistMint',
-    args:[BigInt(_mintAmount),(_merkleProof)],
-    value: BigInt(mintAmountInWei)
-  });
 
 
   const { config: writeConfig } = usePrepareContractWrite({
@@ -131,7 +124,7 @@ const MintNFTComponent = () => {
 
   const {
     data: mintData,
-    write: mint,
+    write,
     isLoading: isMintLoading,
     isSuccess: isMintStarted,
     error: mintError,
@@ -167,39 +160,19 @@ const MintNFTComponent = () => {
   };
 
   
+  // Mint NFT function
   const mintNFT = async () => {
     try {
-      if (mintStage === MintStage.WhitelistOnly) {
-        // If the mint stage is WhitelistOnly, use the whitelistMint function
-        if (write) {  // Assuming `write` is the function to handle whitelist minting
-          await write();
-          if (whitelistMintError?.message.includes('The total cost (gas * gas fee + value)')){
-            setSnackbarError("You Gotta Get Some More Ethereum... Happy Halloween")
-          }
-          if (whitelistMintError?.message.includes('Address already claimed!')) {
-            setSnackbarError("boo... you already minted")
-        }else if (whitelistMintError?.message.includes('Invalid proof!')){
-            setSnackbarError("You are not on the whitelist!");
-          } 
-          
-        } else {
-          console.error('Whitelist mint function is not available.');
+      if (write) {
+        // You can customize arguments, gas, and other transaction parameters here.
+        // Call the mint function from your smart contract
+        await write();
+
+        // Check if the transaction was successful (no error thrown)
+        if (txData && !txError) {
+          // Update the totalSupply state after a successful mint
+          setTotalSupply(totalSupply + _mintAmount);
         }
-      } else if (mintStage === MintStage.Public) {
-        // If the mint stage is Public, use the mint function
-        if (mint) {
-          await mint();
-          // ... additional logic for handling public minting
-        } else {
-          console.error('Mint function is not available.');
-        }
-      } else {
-        console.error('Invalid mint stage.');
-      }
-  
-      // Check if the transaction was successful (no error thrown)
-      if (txData && !txError) {
-        return;
       }
     } catch (error) {
       if (typeof error === "string") {
