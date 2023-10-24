@@ -9,9 +9,7 @@ import { FrightClubABI } from "../../utils/frightclub";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Snackbar, { snackbarClasses } from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import MerkleTree from 'merkletreejs';
-import keccak256 from 'keccak256';
-import { WlAddresses } from '../../utils/WlAddresses';
+
 import Image from "next/image";
 import { Box } from "@mui/material";
 
@@ -24,11 +22,7 @@ import {
   useContractRead,
 } from "wagmi";
 
-enum MintStage {
-  WhitelistOnly,
-  Public,
-  
-}
+
 
 const StyledCard = styled(Card)({
     maxWidth: 300,
@@ -50,18 +44,10 @@ const MintNFTComponent = () => {
     const [maxMintAmountPerTx] = useState<number>(3); 
     const [_mintAmount, setMintAmount] = useState<number>(1);
     const { isConnected, address } = useAccount();
-    const [mintStage, setMintStage] = useState<MintStage>(MintStage.WhitelistOnly);
     const { connectModalOpen } = useConnectModal(); 
     const [isWalletConnected, setIsWalletConnected] = useState<boolean>(true); 
-    const addresses = WlAddresses;
-    const leaves = useMemo(() => addresses.map(x => keccak256(x)), [addresses]);
-    const tree = useMemo(() => new MerkleTree(leaves, keccak256, { sortPairs: true }), [leaves]);
-    const buf2hex = (x: Buffer): string => '0x' + x.toString('hex');
-  
-    console.log(buf2hex(tree.getRoot()));
-  
-    const [leaf, setLeaf] = useState<string>(''); // Set initially to an empty string
-    const [_merkleProof, setMerkleProof] = useState<string[]>([]); // Set initially to an empty array
+
+
     useEffect(() => {
       console.log("connectModalOpen:", connectModalOpen);
       if (connectModalOpen) {
@@ -75,16 +61,6 @@ const MintNFTComponent = () => {
         },
       });
     
-    useEffect(() => {
-      if (address) {
-        const newLeaf = keccak256(address).toString('hex');
-        setLeaf(newLeaf);
-        const newProof = tree.getProof(newLeaf).map(({ data }) => buf2hex(data));
-        setMerkleProof(newProof);
-      }
-    }, [address, tree]);
-    
-
     
   const contractConfig = {
     address: "0xbBb60CeBdE66a7062B7B57A2b6Ae747041562510",
@@ -167,12 +143,6 @@ const MintNFTComponent = () => {
         // You can customize arguments, gas, and other transaction parameters here.
         // Call the mint function from your smart contract
         await write();
-
-        // Check if the transaction was successful (no error thrown)
-        if (txData && !txError) {
-          // Update the totalSupply state after a successful mint
-          setTotalSupply(totalSupply + _mintAmount);
-        }
       }
     } catch (error) {
       if (typeof error === "string") {
