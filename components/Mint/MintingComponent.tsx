@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
-import { FrightClubABI } from "../../utils/frightclub";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Snackbar, { snackbarClasses } from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
